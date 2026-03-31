@@ -14,7 +14,6 @@ form.addEventListener("submit", (e) => {
         return;
     }
 
-    // Fake login success
     message.innerText = "Login successful ✅";
 
     setTimeout(() => {
