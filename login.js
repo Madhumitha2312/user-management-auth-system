@@ -1,49 +1,22 @@
 const form = document.getElementById("loginForm");
-const message = document.getElementById("loginMessage");
+const message = document.getElementById("message");
 
-form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
+    // simple validation
+    if (!email || !password) {
+        message.innerText = "Please fill all fields";
+        return;
+    }
 
-try {
+    // ✅ FAKE LOGIN SUCCESS
+    message.innerText = "Login successful ✅";
 
-const response = await fetch("/api/auth/login", {
-
-method: "POST",
-
-headers: {
-"Content-Type": "application/json"
-},
-
-body: JSON.stringify({ email, password })
-
-});
-
-const data = await response.json();
-
-if (response.ok) {
-
-message.innerText = "Login successful ✅";
-
-localStorage.setItem("token", data.token);
-localStorage.setItem("user", JSON.stringify(data.user));
-
-window.location.href = "dashboard.html";
-
-} else {
-
-message.innerText = data.message;
-
-}
-
-} catch (error) {
-
-console.error(error);
-message.innerText = "Server error";
-
-}
-
+    setTimeout(() => {
+        window.location.href = "dashboard.html";
+    }, 1000);
 });
