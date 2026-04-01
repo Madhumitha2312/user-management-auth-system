@@ -4,21 +4,23 @@ const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
 
 form.addEventListener("submit", (e) => {
-    e.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+e.preventDefault();
 
-    if (!email || !password) {
-        message.innerText = "Please fill all fields";
-        return;
-    }
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
 
-    message.innerText = "Login successful ✅";
+if (!email || !password) {
+message.innerText = "Please fill all fields ❌";
+return;
+}
 
-    setTimeout(() => {
-        window.location.href = "/user-management-auth-system/dashboard.html";
-    }, 1000);
+// ✅ SUCCESS MESSAGE
+message.innerText = "Login successful ✅";
+
+// ✅ FORCE REDIRECT (NO DELAY ISSUE)
+window.location.href = "/user-management-auth-system/dashboard.html";
+
 });
 
 });
