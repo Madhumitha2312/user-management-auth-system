@@ -19,7 +19,7 @@ return;
 message.innerText = "Login successful ✅";
 
 // ✅ FORCE REDIRECT (NO DELAY ISSUE)
-window.location.href = "/user-management-auth-system/dashboard.html";
+window.location.href = "dashboard.html";
 
 });
 
