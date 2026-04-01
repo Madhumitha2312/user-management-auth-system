@@ -23,6 +23,6 @@ form.addEventListener("submit", (e) => {
     form.reset();
 
     setTimeout(() => {
-        window.location.href = "login.html";
+        window.location.href = "./login.html";
     }, 1000);
 });
