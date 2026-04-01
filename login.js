@@ -15,6 +15,7 @@ message.innerText = "Please fill all fields ❌";
 return;
 }
 
+localStorage.setItem("loggedIn", "true");
 // ✅ SUCCESS MESSAGE
 message.innerText = "Login successful ✅";
 
