@@ -17,7 +17,7 @@ form.addEventListener("submit", (e) => {
     message.innerText = "Login successful ✅";
 
     setTimeout(() => {
-        window.location.href = "dashboard.html";
+        window.location.href = "./dashboard.html";
     }, 1000);
 });
 
