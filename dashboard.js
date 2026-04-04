@@ -144,9 +144,18 @@
   // DELETE USER (LOCAL)
   // ==============================
   
-  function deleteUser(id) {
-    allUsers = allUsers.filter(u => u._id !== id);
-    renderUsers(allUsers);
+    function deleteUser(index) {
+  
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+  
+    // remove selected user
+    users.splice(index, 1);
+  
+    // save back
+    localStorage.setItem("users", JSON.stringify(users));
+  
+    // reload UI
+    loadUsers();
   }
   
   // ==============================
