@@ -245,13 +245,25 @@ function loadSettings() {
   const container = document.getElementById("settingsContainer");
 
   container.innerHTML = `
-    <div class="card">
-      <h3>Settings</h3>
-      <button onclick="saveSettings()">Save</button>
+    <div class="card" style="max-width:400px;">
+      
+      <h3>⚙️ Settings</h3>
+
+      <label>Theme</label><br>
+      <button onclick="toggleTheme()" class="edit">
+        Toggle Dark Mode 🌙
+      </button>
+
+      <br><br>
+
+      <label>Account</label><br>
+      <button onclick="logout()" class="delete">
+        Logout 🚪
+      </button>
+
     </div>
   `;
 }
-
 function saveSettings() {
   alert("Saved!");
 }
