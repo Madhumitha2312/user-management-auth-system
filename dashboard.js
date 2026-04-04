@@ -67,35 +67,37 @@
   // ==============================
   
   function renderUsers(users) {
-  
-    const container = document.getElementById("usersContainer");
-    container.innerHTML = "";
-  
-    const start = (currentPage - 1) * usersPerPage;
-    const end = start + usersPerPage;
-  
-    users.slice(start, end).forEach(user => {
-  
-      const row = document.createElement("tr");
-  
-      row.innerHTML = `
-        <td>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="avatar">${user.name[0]}</div>
-            ${user.name}
-          </div>
-        </td>
+
+  const content = document.getElementById("content");
+
+  let html = `
+    <h2>Users Management</h2>
+    <input type="text" id="search" placeholder="Search users..." onkeyup="searchUser()">
+
+    <table>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+  `;
+
+  users.forEach((user, index) => {
+    html += `
+      <tr>
+        <td>${user.name}</td>
         <td>${user.email}</td>
         <td>
-          <button onclick="deleteUser('${index}')">Delete</button>
+          <button onclick="deleteUser(${index})">Delete</button>
         </td>
-      `;
-  
-      container.appendChild(row);
-    });
-  
-    renderPagination(users.length);
-  }
+      </tr>
+    `;
+  });
+
+  html += `</table>`;
+
+  content.innerHTML = html;
+}
   
   // ==============================
   // SEARCH
@@ -145,18 +147,16 @@
   // ==============================
   
     function deleteUser(index) {
-  
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-  
-    // remove selected user
-    users.splice(index, 1);
-  
-    // save back
-    localStorage.setItem("users", JSON.stringify(users));
-  
-    // reload UI
-    loadUsers();
-  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  users.splice(index, 1);
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  // reload UI
+  loadUsers();
+}
   
   // ==============================
   // CHART
@@ -202,12 +202,11 @@
 
   const content = document.getElementById("content");
 
-  // get real users from localStorage
   let users = JSON.parse(localStorage.getItem("users")) || [];
 
-  const totalUsers = users.length;
-  const activeUsers = users.length; // all are active
-  const inactiveUsers = 0;
+  const total = users.length;
+  const active = users.length;
+  const inactive = 0;
 
   content.innerHTML = `
     <h2>Analytics</h2>
@@ -216,17 +215,17 @@
 
       <div class="card">
         <h4>Total Users</h4>
-        <h2>${totalUsers}</h2>
+        <h2>${total}</h2>
       </div>
 
       <div class="card">
         <h4>Active Users</h4>
-        <h2 style="color:green;">${activeUsers}</h2>
+        <h2 style="color:green;">${active}</h2>
       </div>
 
       <div class="card">
         <h4>Inactive Users</h4>
-        <h2 style="color:red;">${inactiveUsers}</h2>
+        <h2 style="color:red;">${inactive}</h2>
       </div>
 
     </div>
@@ -234,7 +233,6 @@
     <canvas id="analyticsChart"></canvas>
   `;
 
-  // chart
   const ctx = document.getElementById("analyticsChart").getContext("2d");
 
   new Chart(ctx, {
@@ -243,12 +241,8 @@
       labels: ["Total", "Active", "Inactive"],
       datasets: [{
         label: "Users",
-        data: [totalUsers, activeUsers, inactiveUsers],
-        borderWidth: 1
+        data: [total, active, inactive]
       }]
-    },
-    options: {
-      responsive: true
     }
   });
 }
