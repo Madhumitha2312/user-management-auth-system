@@ -11,7 +11,7 @@ if (!localStorage.getItem("loggedIn")) {
 // DATA
 // ==============================
 
-let allUsers = [];
+let allUsers = JSON.parse(localStorage.getItem("users")) || [];;
 let currentPage = 1;
 const usersPerPage = 10;
 
