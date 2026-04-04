@@ -11,6 +11,16 @@ form.addEventListener("submit", (e) => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    users.push({
+      name,
+      email,
+      password
+    });
+
+localStorage.setItem("users", JSON.stringify(users));
+
     // password validation
     if (password.length < 6) {
         message.innerText = "Password must be at least 6 characters";
