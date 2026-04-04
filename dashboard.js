@@ -1,6 +1,7 @@
-    window.onload = function () {
+let allUsers = [];
+window.onload = function () {
     loadUsers();   // default load
-  };
+};
 
 // ==============================
   // 🔥 TEMP AUTH FIX (IMPORTANT)
@@ -54,22 +55,15 @@
   // ==============================
   
     function loadUsers() {
-    
-      // ✅ Use real users from localStorage
-      allUsers = JSON.parse(localStorage.getItem("users")) || [];
-    
-      renderUsers(allUsers);
-  
-        if (!localStorage.getItem("users")) {
-      localStorage.setItem("users", JSON.stringify([]));
-    }
-    
-      document.getElementById("totalUsers").innerText = allUsers.length;
-      document.getElementById("activeUsers").innerText = allUsers.length;
-    
-      loadChart();
-    }
-  
+
+  allUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+  renderUsers(allUsers);
+
+  // update dashboard numbers
+  document.getElementById("totalUsers").innerText = allUsers.length;
+  document.getElementById("activeUsers").innerText = allUsers.length;
+}
   // ==============================
   // RENDER USERS
   // ==============================
@@ -80,7 +74,6 @@
 
   let html = `
     <h2>Users Management</h2>
-    <input type="text" id="search" placeholder="Search users..." onkeyup="searchUser()">
 
     <table>
       <tr>
@@ -156,14 +149,11 @@
   
     function deleteUser(index) {
 
-  let users = JSON.parse(localStorage.getItem("users")) || [];
+  allUsers.splice(index, 1);
 
-  users.splice(index, 1);
+  localStorage.setItem("users", JSON.stringify(allUsers));
 
-  localStorage.setItem("users", JSON.stringify(users));
-
-  // reload UI
-  loadUsers();
+  loadUsers(); // reload
 }
   
   // ==============================
@@ -217,42 +207,27 @@
   const inactive = 0;
 
   content.innerHTML = `
-  <h2>Analytics</h2>
+    <h2>Analytics</h2>
 
-  <div class="cards">
+    <div class="cards">
 
-    <div class="card">
-      <h4>Total Users</h4>
-      <h2>${users.length}</h2>
+      <div class="card">
+        <h4>Total Users</h4>
+        <h2>${total}</h2>
+      </div>
+
+      <div class="card">
+        <h4>Active Users</h4>
+        <h2 style="color:green;">${active}</h2>
+      </div>
+
+      <div class="card">
+        <h4>Inactive Users</h4>
+        <h2 style="color:red;">${inactive}</h2>
+      </div>
+
     </div>
-
-    <div class="card">
-      <h4>Active Users</h4>
-      <h2 style="color:green;">${users.length}</h2>
-    </div>
-
-    <div class="card">
-      <h4>Inactive Users</h4>
-      <h2 style="color:red;">0</h2>
-    </div>
-
-  </div>
-
-  <canvas id="analyticsChart"></canvas>
-`;
-
-  const ctx = document.getElementById("analyticsChart").getContext("2d");
-
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: ["Total", "Active", "Inactive"],
-      datasets: [{
-        label: "Users",
-        data: [total, active, inactive]
-      }]
-    }
-  });
+  `;
 }
   
   
@@ -292,3 +267,7 @@
   // ==============================
   
   loadUsers();
+
+window.onload = function () {
+  loadUsers(); // default page
+};
