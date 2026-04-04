@@ -19,6 +19,32 @@ window.onload = function () {
   let allUsers = JSON.parse(localStorage.getItem("users")) || [];;
   let currentPage = 1;
   const usersPerPage = 10;
+
+function showDashboard() {
+  document.getElementById("content").innerHTML = `
+    <div class="cards">
+      <div class="card">
+        <h4>Total Users</h4>
+        <h2 id="totalUsers">0</h2>
+      </div>
+      <div class="card">
+        <h4>Active Users</h4>
+        <h2 id="activeUsers">0</h2>
+      </div>
+      <div class="card">
+        <h4>New Users</h4>
+        <h2>0</h2>
+      </div>
+    </div>
+
+    <div class="chart">
+      <h3>User Growth</h3>
+      <canvas id="chart"></canvas>
+    </div>
+  `;
+
+  loadUsers(); // update numbers
+}
   
   // ==============================
   // SECTION SWITCH
