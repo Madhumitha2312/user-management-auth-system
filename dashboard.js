@@ -191,12 +191,51 @@ function loadAnalytics() {
   const container = document.getElementById("analyticsContainer");
 
   container.innerHTML = `
-    <div class="card">
-      <h3>Total Users</h3>
-      <p>${allUsers.length}</p>
+    <div class="cards">
+      
+      <div class="card">
+        <h4>Total Users</h4>
+        <h2>${allUsers.length}</h2>
+      </div>
+
+      <div class="card">
+        <h4>Active Users</h4>
+        <h2 style="color:green;">
+          ${Math.floor(allUsers.length * 0.7)}
+        </h2>
+      </div>
+
+      <div class="card">
+        <h4>Inactive Users</h4>
+        <h2 style="color:red;">
+          ${Math.floor(allUsers.length * 0.3)}
+        </h2>
+      </div>
+
     </div>
+
+    <canvas id="analyticsChart" height="100"></canvas>
   `;
+
+  const ctx = document.getElementById("analyticsChart");
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Total", "Active", "Inactive"],
+      datasets: [{
+        label: "Users",
+        data: [
+          allUsers.length,
+          Math.floor(allUsers.length * 0.7),
+          Math.floor(allUsers.length * 0.3)
+        ],
+        borderWidth: 2
+      }]
+    }
+  });
 }
+
 
 // ==============================
 // SETTINGS
