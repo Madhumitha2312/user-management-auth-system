@@ -209,29 +209,29 @@
   const inactive = 0;
 
   content.innerHTML = `
-    <h2>Analytics</h2>
+  <h2>Analytics</h2>
 
-    <div class="cards">
+  <div class="cards">
 
-      <div class="card">
-        <h4>Total Users</h4>
-        <h2>${total}</h2>
-      </div>
-
-      <div class="card">
-        <h4>Active Users</h4>
-        <h2 style="color:green;">${active}</h2>
-      </div>
-
-      <div class="card">
-        <h4>Inactive Users</h4>
-        <h2 style="color:red;">${inactive}</h2>
-      </div>
-
+    <div class="card">
+      <h4>Total Users</h4>
+      <h2>${users.length}</h2>
     </div>
 
-    <canvas id="analyticsChart"></canvas>
-  `;
+    <div class="card">
+      <h4>Active Users</h4>
+      <h2 style="color:green;">${users.length}</h2>
+    </div>
+
+    <div class="card">
+      <h4>Inactive Users</h4>
+      <h2 style="color:red;">0</h2>
+    </div>
+
+  </div>
+
+  <canvas id="analyticsChart"></canvas>
+`;
 
   const ctx = document.getElementById("analyticsChart").getContext("2d");
 
