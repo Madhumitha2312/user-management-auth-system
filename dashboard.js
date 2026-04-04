@@ -199,54 +199,59 @@
   // ==============================
   
   function loadAnalytics() {
-    const container = document.getElementById("analyticsContainer");
-  
-    container.innerHTML = `
-      <div class="cards">
-        
-          <div class="card">
-      <h4>Active Users</h4>
-      <h2 style="color:green;">
-        ${allUsers.length}
-      </h2>
-    </div>
-    
-    <div class="card">
-      <h4>Inactive Users</h4>
-      <h2 style="color:red;">
-        0
-      </h2>
-    </div>
-        <div class="card">
-          <h4>Inactive Users</h4>
-          <h2 style="color:red;">
-            ${Math.floor(allUsers.length * 0.3)}
-          </h2>
-        </div>
-  
+
+  const content = document.getElementById("content");
+
+  // get real users from localStorage
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  const totalUsers = users.length;
+  const activeUsers = users.length; // all are active
+  const inactiveUsers = 0;
+
+  content.innerHTML = `
+    <h2>Analytics</h2>
+
+    <div class="cards">
+
+      <div class="card">
+        <h4>Total Users</h4>
+        <h2>${totalUsers}</h2>
       </div>
-  
-      <canvas id="analyticsChart" height="100"></canvas>
-    `;
-  
-    const ctx = document.getElementById("analyticsChart");
-  
-    new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: ["Total", "Active", "Inactive"],
-        datasets: [{
-          label: "Users",
-          data: [
-            allUsers.length,
-            Math.floor(allUsers.length * 0.7),
-            Math.floor(allUsers.length * 0.3)
-          ],
-          borderWidth: 2
-        }]
-      }
-    });
-  }
+
+      <div class="card">
+        <h4>Active Users</h4>
+        <h2 style="color:green;">${activeUsers}</h2>
+      </div>
+
+      <div class="card">
+        <h4>Inactive Users</h4>
+        <h2 style="color:red;">${inactiveUsers}</h2>
+      </div>
+
+    </div>
+
+    <canvas id="analyticsChart"></canvas>
+  `;
+
+  // chart
+  const ctx = document.getElementById("analyticsChart").getContext("2d");
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Total", "Active", "Inactive"],
+      datasets: [{
+        label: "Users",
+        data: [totalUsers, activeUsers, inactiveUsers],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true
+    }
+  });
+}
   
   
   // ==============================
