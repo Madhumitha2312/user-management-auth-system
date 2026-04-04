@@ -87,7 +87,7 @@
         </td>
         <td>${user.email}</td>
         <td>
-          <button onclick="deleteUser('${user._id}')">Delete</button>
+          <button onclick="deleteUser('${index}')">Delete</button>
         </td>
       `;
   
