@@ -174,6 +174,12 @@ function loadChart() {
   });
 }
 
+
+function toggleTheme() {
+  document.body.classList.toggle("dark");
+}
+
+
 // ==============================
 // LOGOUT
 // ==============================
