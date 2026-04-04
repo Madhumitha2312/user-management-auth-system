@@ -51,12 +51,8 @@ document.getElementById("darkToggle").onclick = () => {
 
 function loadUsers() {
 
-  // Fake data (for demo)
-  allUsers = [
-    { name: "Madhu", email: "madhu@gmail.com", _id: "1" },
-    { name: "User1", email: "user1@gmail.com", _id: "2" },
-    { name: "User2", email: "user2@gmail.com", _id: "3" }
-  ];
+  // ✅ Use real users from localStorage
+  allUsers = JSON.parse(localStorage.getItem("users")) || [];
 
   renderUsers(allUsers);
 
