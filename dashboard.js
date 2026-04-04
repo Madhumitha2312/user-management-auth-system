@@ -1,4 +1,8 @@
-  // ==============================
+    window.onload = function () {
+    loadUsers();   // default load
+  };
+
+// ==============================
   // 🔥 TEMP AUTH FIX (IMPORTANT)
   // ==============================
   
@@ -49,18 +53,22 @@
   // FAKE USERS (SINCE NO BACKEND)
   // ==============================
   
-  function loadUsers() {
+    function loadUsers() {
+    
+      // ✅ Use real users from localStorage
+      allUsers = JSON.parse(localStorage.getItem("users")) || [];
+    
+      renderUsers(allUsers);
   
-    // ✅ Use real users from localStorage
-    allUsers = JSON.parse(localStorage.getItem("users")) || [];
-  
-    renderUsers(allUsers);
-  
-    document.getElementById("totalUsers").innerText = allUsers.length;
-    document.getElementById("activeUsers").innerText = allUsers.length;
-  
-    loadChart();
-  }
+        if (!localStorage.getItem("users")) {
+      localStorage.setItem("users", JSON.stringify([]));
+    }
+    
+      document.getElementById("totalUsers").innerText = allUsers.length;
+      document.getElementById("activeUsers").innerText = allUsers.length;
+    
+      loadChart();
+    }
   
   // ==============================
   // RENDER USERS
